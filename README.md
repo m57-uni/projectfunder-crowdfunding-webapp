@@ -14,6 +14,6 @@ von SQL-Injection, sauberes Schließen von DB-Ressourcen.
 **Kontext:** Praktikum zur Vorlesung Datenbanken, Universität 
 Duisburg-Essen, Wintersemester 2019/2020.
 
-**Stack:** Java (oder Python), IBM DB2, SQL, HTML
+**Stack:** Java, IBM DB2, SQL, HTML
 
 *Archiviertes Studienprojekt — nicht aktiv weiterentwickelt.*
