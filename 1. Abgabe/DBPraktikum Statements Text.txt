@@ -1,0 +1,126 @@
+CREATE TABLE Benutzer (
+        E-Mail VARCHAR (255) NOT NULL,
+        Profilbeschreibung VARCHAR (255),
+        Name VARCHAR (255) NOT NULL,
+        PRIMARY KEY (E-Mail)
+);
+
+INSERT INTO Benutzer (E-Mail, Profilbeschreibung, Name)
+VALUES ('franko@hotmail.com', 'Franko Machts’, 'Aus Dortmund');
+       
+
+CREATE TABLE Konto (
+        Guthaben DECIMAL (12,2) NOT NULL,
+        Geheimzahl INTEGER NOT NULL,
+        IBAN INTEGER NOT NULL,
+        PRIMARY KEY (IBAN)
+);
+
+INSERT INTO Konto (Guthaben, Geheimzahl, IBAN)
+VALUES (34,65, 4826, 0093140617);
+
+
+CREATE TABLE Projekt (
+        Titel VARCHAR (255) NOT NULL,
+        Beschreibung VARCHAR (255),
+        Finanzierungslimit DECIMAL (12,2) NOT NULL,
+        Pnummer INTEGER NOT NULL,
+        Status ('offen', 'geschlossen') not null,
+        PRIMARY KEY (PNummer)
+);
+
+INSERT INTO Projekt (Titel, Beschreibung, Finanzierungslimit,
+                                    PNummer, Status)
+VALUES ('PS4 Game', 'Cooles Spiel', 10000, 1, 'Offen');
+
+
+CREATE TABLE Kommentar (
+        KID INTEGER NOT NULL,
+        Textnachricht VARCHAR (255) NOT NULL,
+        Erstellungsdatum DATE NOT NULL,
+        Sichtbarkeit ('privat', 'öffentlich') NOT NULL,
+        PRIMARY KEY (KID)
+);
+
+INSERT INTO Kommentar (KID, Textnachricht, Erstellungsdatum,
+                                            Sichtbarkeit)
+VALUES (1234, 'Sehr cooles Projekt', 01.01.2019, 'Öffentlich');
+
+
+CREATE TABLE Kategorie (
+        ID INTEGER NOT NULL,
+        Name VARCHAR (255) NOT NULL,
+        Icon VARGRAPHIC NOT NULL,
+        PRIMARY KEY (ID)
+);
+
+INSERT INTO Kategorie (ID, Name, Icon)
+VALUES (99, 'Education', 'Logo');
+
+
+CREATE TABLE hat_Beziehung (
+        Vorgänger VARCHAR (255),
+        Nachfolger VARCHAR (255)
+);
+
+INSERT INTO hat_Beziehung (Vorgänger, Nachfolger)
+VALUES ('War Lord 1', 'War Lord 3');
+
+
+CREATE TABLE erstellt (
+        E-Mail VARCHAR (255) NOT NULL,
+        PNummer INTEGER NOT NULL,
+        ID INTEGER NOT NULL
+);
+
+INSERT INTO erstellt (E-Mail, PNummer, ID)
+VALUES ('arnold@hotmail.com', 34, 112);
+
+CREATE TABLE verfügt (
+        E-Mail VARCHAR (255) NOT NULL,
+        IBAN INTEGER NOT NULL
+);
+
+INSERT INTO verfügt (E-Mail, IBAN)
+VALUES ('max123@hotmail.com', 12345678);
+
+
+CREATE TABLE schreibt (
+        E-Mail VARCHAR (255) NOT NULL,
+        KID INTEGER NOT NULL
+);
+
+INSERT INTO schreibt (E-Mail, KID)
+VALUES ('fritz@hotmail.com', 33710);
+
+
+CREATE TABLE zugeordnet_zu (
+        PNummer INTEGER NOT NULL,
+        ID INTEGER NOT NULL
+);
+
+INSERT INTO zugeordnet_zu (PNummer, ID)
+VALUES (1027, 330561);
+
+
+CREATE TABLE spendet (
+        Spendenbetrag DECIMAL (12,2) NOT NULL,
+        Sichtbarkeit ('Anonym', 'Name') NOT NULL,
+        E-Mail VARCHAR (255) NOT NULL,
+        PNummer INTEGER NOT NULL,
+        IBAN INTEGER NOT NULL
+);
+
+INSERT INTO spendet (Spendenbetrag, Sichtbarkeit, E-Mail,
+                                      PNummer, IBAN)
+VALUES (10,00 , 'Anonym', 'max100@hotmail.com', 34, 12345678);
+
+
+CREATE TRIGGER check_limit
+        BEFORE INSERT OF Spendenbetrag ON Projekt 
+                  FOR EACH ROW
+  IF neu.Spendenbetrag > current Finanzierungslimit
+   THEN
+      Status = 'Geschlossen'
+   END IF 
+ 
